@@ -3,10 +3,11 @@ let app = express();
 
 console.log('Hello World');
 
-function helloExpress(_, res) {
-  res.send('Hello Express');
+function serveHomePage(_, res) {
+  const absolutePathHome = __dirname + '/views/index.html';
+  res.sendFile(absolutePathHome);
 }
 
-app.get('/', helloExpress);
+app.get('/', serveHomePage);
 
 module.exports = app;
