@@ -33,7 +33,7 @@ function applyTimestamp(req, _, next) {
   next();
 }
 
-function serveTimestamp(req, _, next) {
+function serveTimestamp(req, res, next) {
   res.json({ time: req.time });
   next();
 }
