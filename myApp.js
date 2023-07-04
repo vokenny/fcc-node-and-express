@@ -27,9 +27,21 @@ function serveJsonHello(_, res) {
   res.json(messageBody);
 }
 
+function applyTimestamp(req, _, next) {
+  const currentTime = new Date().toString();
+  req.time = currentTime;
+  next();
+}
+
+function logTimestamp(req, _, next) {
+  console.log({ time: req.time });
+  next();
+}
+
 app.use('/public', usePublicAssets());
 app.use('/', requestLogger);
 app.get('/', serveHomePage);
 app.get('/json', serveJsonHello);
+app.get('/now', applyTimestamp, logTimestamp);
 
 module.exports = app;
