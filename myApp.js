@@ -33,13 +33,18 @@ function applyTimestamp(req, _, next) {
   next();
 }
 
-function serveTimestamp(req, res, next) {
+function serveTimestamp(req, res) {
   res.json({ time: req.time });
 }
 
-function echoWord(req, res, next) {
+function echoWord(req, res) {
   const { word } = req.params;
   res.json({ echo: word });
+}
+
+function serveName(req, res) {
+  const { first, last } = req.query;
+  res.json({ name: `${first} ${last}` });
 }
 
 app.use('/public', usePublicAssets());
@@ -48,5 +53,6 @@ app.get('/', serveHomePage);
 app.get('/json', serveJsonHello);
 app.get('/now', applyTimestamp, serveTimestamp);
 app.get('/:word/echo', echoWord);
+app.route('/name').get(serveName);
 
 module.exports = app;
