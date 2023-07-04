@@ -8,6 +8,9 @@ function serveHomePage(_, res) {
   res.sendFile(absolutePathHome);
 }
 
+const usePublicAssets = () => express.static(__dirname + '/public');
+
+app.use('/public', usePublicAssets());
 app.get('/', serveHomePage);
 
 module.exports = app;
