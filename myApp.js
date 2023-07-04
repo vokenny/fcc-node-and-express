@@ -45,8 +45,13 @@ function echoWord(req, res) {
   res.json({ echo: word });
 }
 
-function serveName(req, res) {
+function serveNameFromQuery(req, res) {
   const { first, last } = req.query;
+  res.json({ name: `${first} ${last}` });
+}
+
+function serveNameFromBody(req, res) {
+  const { first, last } = req.body;
   res.json({ name: `${first} ${last}` });
 }
 
@@ -59,6 +64,6 @@ app.get('/', serveHomePage);
 app.get('/json', serveJsonHello);
 app.get('/now', applyTimestamp, serveTimestamp);
 app.get('/:word/echo', echoWord);
-app.route('/name').get(serveName);
+app.route('/name').get(serveNameFromQuery).post(serveNameFromBody);
 
 module.exports = app;
