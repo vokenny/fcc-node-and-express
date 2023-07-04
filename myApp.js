@@ -21,15 +21,7 @@ function serveJsonHello(_, res) {
 }
 
 app.use('/public', usePublicAssets());
-
 app.get('/', serveHomePage);
-
-// app.get('/json', serveJsonHello);
-app.get('/json', (_, res) =>
-  res.json({
-    message:
-      process.env.MESSAGE_STYLE === 'uppercase' ? 'HELLO JSON' : 'Hello json',
-  })
-);
+app.get('/json', serveJsonHello);
 
 module.exports = app;
