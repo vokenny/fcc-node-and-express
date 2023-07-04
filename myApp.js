@@ -33,8 +33,8 @@ function applyTimestamp(req, _, next) {
   next();
 }
 
-function logTimestamp(req, _, next) {
-  console.log({ time: req.time });
+function serveTimestamp(req, _, next) {
+  res.json({ time: req.time });
   next();
 }
 
