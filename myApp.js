@@ -10,6 +10,7 @@ const usePublicAssets = () => express.static(__dirname + '/public');
 function requestLogger(req, _, next) {
   const { method, path, ip } = req;
   console.log({ method, path, ip });
+  console.log(`${method} ${path} - ${ip}`);
   next();
 }
 
