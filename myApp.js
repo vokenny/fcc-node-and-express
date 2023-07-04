@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 let express = require('express');
 let app = express();
 
@@ -11,8 +13,11 @@ function serveHomePage(_, res) {
 }
 
 function serveJsonHello(_, res) {
-  const helloMessage = { message: 'Hello json' };
-  res.json(helloMessage);
+  const helloMessage =
+    process.env.MESSAGE_STYLE === 'uppercase' ? 'HELLO JSON' : 'Hello json';
+  const messageBody = { message: helloMessage };
+
+  res.json(messageBody);
 }
 
 app.use('/public', usePublicAssets());
