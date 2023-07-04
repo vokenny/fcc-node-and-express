@@ -1,10 +1,13 @@
 require('dotenv').config();
 
-let express = require('express');
-let app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
 
 console.log('Hello World');
 
+const useBodyParser = () => bodyParser.urlencoded({ extended: false });
+const parseJsonPayloads = () => bodyParser.json();
 const usePublicAssets = () => express.static(__dirname + '/public');
 
 function requestLogger(req, _, next) {
@@ -47,8 +50,11 @@ function serveName(req, res) {
   res.json({ name: `${first} ${last}` });
 }
 
-app.use('/public', usePublicAssets());
 app.use('/', requestLogger);
+app.use('/', useBodyParser());
+app.use('/', parseJsonPayloads());
+app.use('/public', usePublicAssets());
+
 app.get('/', serveHomePage);
 app.get('/json', serveJsonHello);
 app.get('/now', applyTimestamp, serveTimestamp);
