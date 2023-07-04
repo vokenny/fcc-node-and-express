@@ -42,6 +42,6 @@ app.use('/public', usePublicAssets());
 app.use('/', requestLogger);
 app.get('/', serveHomePage);
 app.get('/json', serveJsonHello);
-app.get('/now', applyTimestamp, logTimestamp);
+app.get('/now', applyTimestamp, serveTimestamp);
 
 module.exports = app;
