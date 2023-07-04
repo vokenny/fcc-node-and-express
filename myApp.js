@@ -35,7 +35,11 @@ function applyTimestamp(req, _, next) {
 
 function serveTimestamp(req, res, next) {
   res.json({ time: req.time });
-  next();
+}
+
+function echoWord(req, res, next) {
+  const { word } = req.params;
+  res.json({ echo: word });
 }
 
 app.use('/public', usePublicAssets());
@@ -43,5 +47,6 @@ app.use('/', requestLogger);
 app.get('/', serveHomePage);
 app.get('/json', serveJsonHello);
 app.get('/now', applyTimestamp, serveTimestamp);
+app.get('/:word/echo', echoWord);
 
 module.exports = app;
